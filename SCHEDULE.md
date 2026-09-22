@@ -9,50 +9,61 @@ Target: the Finnish parliamentary election of **Sunday 18 April 2027**.
 
 | Slot | When | Predicts | News cutoff |
 |---|---|---|---|
-| **HS / Verian** | 13th of each month | the next Verian poll | end of the 13th |
-| **Yle / Taloustutkimus** | last day of each month | the next Taloustutkimus poll | end of that day |
+| **Yle / Taloustutkimus** | Tuesday, 2 days before the 1st Thursday of the month | that Thursday's poll | end of the Tuesday |
+| **HS / Verian** | Monday, 2 days before the 3rd Wednesday of the month | that Wednesday's poll | end of the Monday |
 | **Election** | 7th of each month | the 18 April result | end of the 7th |
 
 Plus one extra election forecast on **13 April 2027**, the day advance voting
-closes. That is the final one, and the number the account is judged on.
+closes. That is the final one, and the number the account is judged on. It also
+stands in for that month's HS / Verian slot — see below.
 
 Every slot produces both Claude tracks, `polls_only` and `plus_news`, written
 together. `benchmark` is computed for the same target, not predicted.
 
 ## Why these dates
 
-Verian publishes in HS on the 15th or later, roughly two days after fieldwork
-closes. Taloustutkimus publishes at Yle in the first days of the month, roughly
-three days after fieldwork closes. Each slot sits just before the corresponding
-fieldwork window shuts, so the prediction is locked while the last interviews
-are still being taken and cannot be contaminated by the poll's own coverage.
+Yle and HS set these publication dates, not the pollsters — Taloustutkimus and
+Verian field their surveys backward from a fixed editorial slot, not the other
+way round. The pattern, checked against how these polls have actually run:
 
-### The slots run early — by about three days
+- **Taloustutkimus, at Yle, publishes on the first Thursday of the month.**
+- **Verian, at HS, publishes on the third Wednesday of the month.**
+- Fieldwork for both closes by the weekend before publication.
+
+The Claude slot sits two days before that publication date — Tuesday for
+Taloustutkimus, Monday for Verian. Since fieldwork is already closed (or all
+but closed) by then, the two-day gap isn't there to beat fieldwork; it's there
+to beat the *release*. Nothing about either poll's actual numbers is public
+when the slot falls, only that fieldwork has wrapped.
+
+Because the slot is pinned to a weekday two days before another fixed weekday,
+it is itself always the same weekday: every Taloustutkimus slot is a Tuesday,
+every Verian slot is a Monday. Neither ever falls on a weekend.
+
+### Fieldwork closes at or before the slot, not after
 
 Measured against the 79 polls in `data/polls.csv`, over the most recent twelve
 rounds of each pollster:
 
 | Pollster | Fieldwork runs past its slot by | Range | Typical fieldwork length |
 |---|---|---|---|
-| Verian | **median 3 days** | −1 to +7 days | 27–34 days (one outlier excluded, see below) |
-| Taloustutkimus | **median 3 days** | +1 to +30 days | 21–34 days |
+| Taloustutkimus | **median 0 days** | −1 to +7 days | 21–34 days |
+| Verian | **median 0 days** | −1 to +7 days | 27–34 days (one outlier excluded, see below) |
 
-So roughly the last three days of each fieldwork window fall after the news
-cutoff. This is a known, deliberate bias, not an accident: it makes the
-prediction strictly harder and keeps the cutoff on a fixed calendar date rather
-than on a fieldwork end that is only announced after publication.
+Fieldwork wraps at or just before the slot in most rounds — consistent with
+"fieldwork closes by the previous weekend." The one exception for each
+pollster is April 2026, when both ran seven days over: Taloustutkimus's slot
+(31 Mar) preceded a fieldwork close of 7 Apr, and Verian's slot (13 Apr)
+preceded a close of 20 Apr — plausibly the Easter/May Day period compressing
+that month's survey calendar for both at once.
 
 It is recorded here so it can be corrected for in scoring rather than
 discovered later. The actual fieldwork window goes into `data/polls.csv` on
 publication, so the real gap is checkable for every single prediction.
 
-The Taloustutkimus range has a 30-day outlier: the pollster occasionally skips a
-month, and the slot then sits a full cycle early. When a month is skipped, the
-prediction still stands and is scored against whatever poll eventually arrives.
-
 Verian's fieldwork length has its own outlier, excluded from the typical range
 above: the round fielded 5 December 2025 to 19 January 2026 ran 45 days,
-spanning the Christmas and New Year break. Its overrun was still only 6 days,
+spanning the Christmas and New Year break. Its overrun was still 0 days,
 inside the stated range, since the slot itself did not move.
 
 ## Every prediction day
@@ -61,39 +72,44 @@ inside the stated range, since the slot itself did not move.
 
 ### 2026
 
-| Date | Slot |
-|---|---|
-| Wed 30 Sep | Yle / Taloustutkimus |
-| Wed 7 Oct | Election |
-| Tue 13 Oct | HS / Verian |
-| Sat 31 Oct | Yle / Taloustutkimus |
-| Sat 7 Nov | Election |
-| Fri 13 Nov | HS / Verian |
-| Mon 30 Nov | Yle / Taloustutkimus |
-| Mon 7 Dec | Election |
-| Sun 13 Dec | HS / Verian |
-| Thu 31 Dec | Yle / Taloustutkimus |
+| Date | Slot | Predicts |
+|---|---|---|
+| Tue 29 Sep | Yle / Taloustutkimus | Thu 1 Oct |
+| Wed 7 Oct | Election | — |
+| Mon 19 Oct | HS / Verian | Wed 21 Oct |
+| Tue 3 Nov | Yle / Taloustutkimus | Thu 5 Nov |
+| Sat 7 Nov | Election | — |
+| Mon 16 Nov | HS / Verian | Wed 18 Nov |
+| Tue 1 Dec | Yle / Taloustutkimus | Thu 3 Dec |
+| Mon 7 Dec | Election | — |
+| Mon 14 Dec | HS / Verian | Wed 16 Dec |
 
 ### 2027
 
-| Date | Slot |
-|---|---|
-| Thu 7 Jan | Election |
-| Wed 13 Jan | HS / Verian |
-| Sun 31 Jan | Yle / Taloustutkimus |
-| Sun 7 Feb | Election |
-| Sat 13 Feb | HS / Verian |
-| Sun 28 Feb | Yle / Taloustutkimus |
-| Sun 7 Mar | Election |
-| Sat 13 Mar | HS / Verian |
-| Wed 31 Mar | Yle / Taloustutkimus — last regular round |
-| Wed 7 Apr | Election — advance voting opens |
-| **Tue 13 Apr** | **Election, final** · and HS / Verian, final poll |
-| Sun 18 Apr | Election day |
-| Mon 19 Apr | Full scorecard |
+| Date | Slot | Predicts |
+|---|---|---|
+| Tue 5 Jan | Yle / Taloustutkimus | Thu 7 Jan |
+| Thu 7 Jan | Election | — |
+| Mon 18 Jan | HS / Verian | Wed 20 Jan |
+| Tue 2 Feb | Yle / Taloustutkimus | Thu 4 Feb |
+| Sun 7 Feb | Election | — |
+| Mon 15 Feb | HS / Verian | Wed 17 Feb |
+| Tue 2 Mar | Yle / Taloustutkimus | Thu 4 Mar |
+| Sun 7 Mar | Election | — |
+| Mon 15 Mar | HS / Verian — last regular round | Wed 17 Mar |
+| Tue 30 Mar | Yle / Taloustutkimus — last regular round | Thu 1 Apr |
+| Wed 7 Apr | Election — advance voting opens | — |
+| **Tue 13 Apr** | **Election, final** · and HS / Verian, final poll | — |
+| Sun 18 Apr | Election day | — |
+| Mon 19 Apr | Full scorecard | — |
 
-13 April carries two predictions and therefore four forecasts. Nine of the 21
-days fall on a weekend; 7 December and 31 December are holiday-adjacent.
+13 April carries two predictions and therefore four forecasts. Three of the 21
+days fall on a weekend, all of them Election slots (7 Nov, 7 Feb, 7 Mar) —
+Taloustutkimus and Verian slots never do, by construction.
+
+Verian's regular monthly cycle would next fall on 19 April, after election day,
+so it is dropped: the 13 April final forecast covers it instead, timed to the
+day advance voting closes rather than to a Wednesday that never comes.
 
 ## Fixed dates in the election
 
@@ -113,10 +129,10 @@ later news, which is the main reason the two tracks should converge at the end.
 
 ## Scoring points
 
-Each Taloustutkimus poll is scored when it publishes, in the first week of the
-month; each Verian poll around the 15th to the 17th. Scoring is Phase 0 of the
-next cycle, per [METHOD.md](METHOD.md) — no prediction is made before the
-outstanding ones are scored.
+Each Taloustutkimus poll is scored when it publishes, on the first Thursday of
+the month; each Verian poll on the third Wednesday, typically the 15th to the
+21st. Scoring is Phase 0 of the next cycle, per [METHOD.md](METHOD.md) — no
+prediction is made before the outstanding ones are scored.
 
 ## Rules for the schedule itself
 
@@ -124,7 +140,8 @@ outstanding ones are scored.
    even if it happens before the poll is published. Stated in every post.
 2. **Log before posting.** The prediction is committed here first, then posted.
 3. **Slots do not move.** If a prediction is late, it is logged late and marked
-   late, rather than backdated.
+   late, rather than backdated. In practice this only ever affects the Election
+   slot, since the poll slots never land on a weekend.
 4. **Extra polls are ad hoc.** Both pollsters tend to add rounds near the
    election. Predict them, but tag them separately so the 14 scheduled poll
    forecasts stay a clean comparable series.
