@@ -5,8 +5,9 @@ parliamentary election of 18 April 2027** and each upcoming poll from
 Taloustutkimus (Yle) and Verian (Helsingin Sanomat).
 
 Every prediction is written here before the poll it predicts is published, then
-scored against the result. The method is fixed in advance and documented in
-[METHOD.md](METHOD.md).
+scored against the result. Both are fixed in advance: [METHOD.md](METHOD.md) sets
+out how a prediction is made, [SCHEDULE.md](SCHEDULE.md) sets out when — every
+slot from 30 September 2026 to the final forecast on 13 April 2027.
 
 ## Data
 

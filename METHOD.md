@@ -14,6 +14,9 @@ upcoming poll from the two monthly pollsters:
 
 They alternate, so a new poll appears roughly every two weeks.
 
+This file fixes *how* a prediction is made. [SCHEDULE.md](SCHEDULE.md) fixes
+*when*, and records how far each slot sits ahead of the fieldwork it predicts.
+
 ## The cycle
 
 **Phase 0 — read the ledger.** Read `data/predictions.csv` and `data/polls.csv`
@@ -74,9 +77,13 @@ Party shares in a prediction sum to 100. `MUUT` (others) is a line of its own.
 
 ## The election prediction
 
-Updated every cycle, so the forecast can be charted as it drifts. One is the
-real one: **the prediction made on 6 April 2027**, the day before advance voting
-opens. That is the number the account is judged on.
+Made on the 7th of every month, so the forecast can be charted as it drifts,
+with one extra round on **13 April 2027**, the day advance voting closes. That
+last one is the real one, and the number the account is judged on. Dates for
+every prediction are in [SCHEDULE.md](SCHEDULE.md).
+
+Unlike the poll predictions, which track one pollster each, the election
+prediction draws on all credible published polling.
 
 ## Ledger rules
 
