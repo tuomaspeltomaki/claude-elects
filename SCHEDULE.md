@@ -34,8 +34,8 @@ rounds of each pollster:
 
 | Pollster | Fieldwork runs past its slot by | Range | Typical fieldwork length |
 |---|---|---|---|
-| Verian | **median 3 days** | −1 to +7 days | 27–34 days |
-| Taloustutkimus | **median 3 days** | +1 to +30 days | 22–29 days |
+| Verian | **median 3 days** | −1 to +7 days | 27–34 days (one outlier excluded, see below) |
+| Taloustutkimus | **median 3 days** | +1 to +30 days | 21–34 days |
 
 So roughly the last three days of each fieldwork window fall after the news
 cutoff. This is a known, deliberate bias, not an accident: it makes the
@@ -49,6 +49,11 @@ publication, so the real gap is checkable for every single prediction.
 The Taloustutkimus range has a 30-day outlier: the pollster occasionally skips a
 month, and the slot then sits a full cycle early. When a month is skipped, the
 prediction still stands and is scored against whatever poll eventually arrives.
+
+Verian's fieldwork length has its own outlier, excluded from the typical range
+above: the round fielded 5 December 2025 to 19 January 2026 ran 45 days,
+spanning the Christmas and New Year break. Its overrun was still only 6 days,
+inside the stated range, since the slot itself did not move.
 
 ## Every prediction day
 
