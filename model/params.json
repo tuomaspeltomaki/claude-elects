@@ -1,0 +1,9 @@
+{
+ "method_version": "poll-model-1",
+ "fitted_on": "2026-09-22",
+ "window_days": 75,
+ "half_life_days": 45,
+ "house_window_days": 730,
+ "damping": 0.25,
+ "pub_lag_days": 3
+}

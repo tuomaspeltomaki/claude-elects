@@ -1,0 +1,25 @@
+{
+  "name": "chart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "chart": "node render.mjs",
+    "chart:html": "node render.mjs --html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/libre-franklin": "^5.3.0",
+    "@fontsource/roboto-mono": "^5.3.0",
+    "@fontsource/source-serif-4": "^5.3.0",
+    "@observablehq/plot": "^0.6.17",
+    "d3": "^7.9.0",
+    "playwright": "^1.63.0"
+  },
+  "type": "module"
+}
